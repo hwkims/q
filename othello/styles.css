@@ -3,7 +3,7 @@
 }
 
 :root {
-   --cell-size: 100px;
+   --cell-size: 96px;
    --mark-size: calc(var(--cell-size) * .9);
 }
 
@@ -13,8 +13,8 @@ body {
 
 .board {
     
-    width: 1935px;
-    height: 530px;
+    width: 1920px;
+    height: 525px;
     display: grid;
     justify-content: center;
     align-content: center;
