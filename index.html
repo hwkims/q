@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.67">
+    <title>큐플레이</title>
+    <style>
+        body {
+            background-image: url('main.png');
+            background-size: 1920px 1440px;
+            background-repeat: no-repeat;
+        }
+        .image-grid {
+            position: absolute;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 8px;
+            top: 193px;
+            left: 65px;
+        }
+        .image-grid img {
+            object-fit: cover;
+            transition: transform 0.2s ease-in-out;
+        }
+        .image-grid img:hover {
+            border-radius: 5px;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            filter: brightness(1.1);
+
+        }
+            
+        
+    </style>
+</head>
+<body>
+    <div class="image-grid">
+        <!-- 4 rows, 2 columns -->
+        <a href="#"><img src="001.png" alt=""></a>
+        <a href="ox/index.html"><img src="002.png" alt=""></a>
+        <a href="hamburger/index.html"><img src="003.png" alt=""></a>
+        <a href="omok/index.html"><img src="004.png" alt=""></a>
+        <a href="othello/index.html"><img src="005.png" alt=""></a>
+        <a href="#"><img src="001.png" alt=""></a>
+        <a href="#"><img src="001.png" alt=""></a>
+        <a href="#"><img src="001.png" alt=""></a>
+    </div>
+
+    <script>
+        const audio = new Audio('큐플레이 BGM - 로그인.ogg');
+        audio.loop = true;
+        audio.autoplay = true;
+    </script>
+</body>
+</html>

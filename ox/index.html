@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.67">
+    <title>OX Quiz Game</title>
+    <style>
+        body {
+ 
+            width: 1920px;
+            height: 1440px;
+            background-image: url('bg.png');
+            background-size: 1920px 1440px;
+            background-repeat: no-repeat;
+        }
+ .container{
+  width: 1920px;
+  height: 1440px;
+ }
+        .question {
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 50px;
+            color: #d90801;
+            position: absolute;
+            left: 940px;
+            transform: translateX(-50%);
+           
+        }
+        .correct-answer{
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 140px;
+            color: #d90801;
+            position: absolute;
+            left: 940px;
+            transform: translateX(-50%);
+          
+        }
+        .ox-zone {
+            width: 50%;
+            height: 666px;
+            float: left;
+        }
+
+        .character {
+            font-size: 48px;
+            position: absolute;
+            left: 900px;
+          
+            transition: 1s;
+            top: 666px;
+
+            text-shadow: #000 0px 0px 10px;
+        }
+        .character img{
+            position: absolute;
+            z-index: 9;
+            animation: bounce infinite 1s;
+  animation-fill-mode: backwards;
+  animation-timing-function: ease-in-out;
+
+        }
+        .character h1{
+            opacity: 0.4;
+            transform: scaleY(0.5);
+           
+            position: absolute;
+            left: 25px;
+            top: 12px;
+            animation: shadowt infinite 1s;
+  animation-fill-mode: backwards;
+  animation-timing-function: ease-in-out;
+        }
+
+        @keyframes shadowt{
+            0% {
+    transform: scaleX(1)scaleY(0.5) ;
+  }
+  50% {
+    transform: scaleX(0.8)scaleY(0.5);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scalex(1)scaleY(0.5);
+  }
+        }
+        @keyframes bounce {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.1) translateY(-20px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+ 
+        @keyframes correct {
+            0%, 33%, 66%, 100% {
+    transform: scale(1);
+  }
+  25%, 50%, 75% {
+    transform: scale(1.2);
+  }
+        }
+        @keyframes incorrect {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.2);
+            }
+        }
+        #o-zone{
+             position: absolute;
+             left: 0;
+             top: 500px;
+        }
+        #x-zone{
+            position: absolute;
+            right: 0;
+            top: 500px;
+        }
+        #timer{
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 230px;
+            color: #d90801;
+            position: absolute;
+            left: 940px;
+            transform: translateX(-50%);
+  
+        }
+        .score{
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 370px;
+            color: #fff;
+            text-shadow: gold 0px 0px 10px;
+            position: absolute;
+            left: 960px;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question"></div>
+        <div class="correct-answer"></div>
+        <div class="ox-zone" id="o-zone"></div>
+        <div class="ox-zone" id="x-zone"></div>
+        <div class="character"><img src="c.png" alt="c"><h1>●</h1></div>
+       
+        <div id="timer">남은시간 : 10</div>
+        <div class="score">점수 : 0</div>
+
+    </div>
+
+    <script>
+        const questions = [];
+        const character = document.querySelector('.character');
+        const timer = document.querySelector('#timer');
+        const correctAnswerDisplay = document.querySelector('.correct-answer');
+        let currentQuestion = 0;
+        let score = 0;
+        let time = 10;
+        let answer = true;
+        let intervalId;
+
+        // Load questions from CSV file
+        fetch('questions.csv')
+            .then(response => response.text())
+            .then(csv => {
+                const rows = csv.split('\n');
+                rows.forEach(row => {
+                    const [question, correctAnswer] = row.split(',');
+                    questions.push({ question,correctAnswer });
+                });
+            })
+            .then(() => {
+                // Start the game
+                startGame();
+            });
+
+            function startGame() {
+    // Select a random question
+    currentQuestion = Math.floor(Math.random() * questions.length);
+    const question = questions[currentQuestion];
+    document.querySelector('.question').textContent = question.question;
+
+            // Set the timer
+            time = 10;
+            timer.textContent = `남은시간 : ${time}`;
+            intervalId = setInterval(() => {
+                time--;
+                timer.textContent = `남은시간 : ${time}`;
+                if (time === 0) {
+                    // Time's up!
+                    checkAnswer();
+                }
+            }, 1000);
+
+            // Add event listeners to the zones
+            document.querySelector('#o-zone').addEventListener('click', () => {
+                character.style.left = '377px';
+                answer = true; // Assign true for O
+                character.style.animation = 'bounce 0.5s';
+                setTimeout(() => {
+                    character.style.animation = '';
+                }, 500);
+            });
+            document.querySelector('#x-zone').addEventListener('click', () => {
+                character.style.left = '1500px';
+                answer = false; // Assign false for X
+                character.style.animation = 'bounce 0.5s';
+                setTimeout(() => {
+                    character.style.animation = '';
+                }, 500);
+            });
+        }
+
+
+        function checkAnswer() {
+  clearInterval(intervalId);
+  const correctAnswer = questions[currentQuestion].correctAnswer === 'O'; // Convert correctAnswer to a boolean value
+  correctAnswerDisplay.textContent = `정답 : ${correctAnswer ? 'O' : 'X'}`;
+  if (answer === correctAnswer) {
+    // Correct!
+    score = score + 1;
+    document.querySelector('.score').textContent = `점수 : ${score}`; // Update the score display immediately
+    const correctSound = new Audio('correct-6033.mp3');
+    correctSound.play(); // Play the correct sound effect
+    character.style.animation = 'correct 3s';
+    setTimeout(() => {
+      character.style.animation = '';
+    }, 3000);
+  } else {
+    // Incorrect!
+    score = score - 1;
+    document.querySelector('.score').textContent = `점수 : ${score}`; // Update the score display immediately
+    const incorrectSound = new Audio('wronganswer-37702.mp3');
+    incorrectSound.play(); // Play the incorrect sound effect
+    character.style.animation = 'incorrect 3s';
+    setTimeout(() => {
+      character.style.animation = '';
+    }, 3000);
+  }
+  // Wait for 3 seconds before moving to the next question
+  setTimeout(() => {
+    correctAnswerDisplay.textContent = '';
+    startGame(); // 새로운 질문을 선택
+  }, 3000);
+}
+    </script>
+
+<script>
+    const audio = new Audio('큐플레이 BGM - 서바이벌 OX.ogg');
+    audio.loop = true;
+    audio.autoplay = true;
+</script>
+
+
+</body>
+<footer>
+    <a href="../index.html" style="
+    position: absolute;
+    top: 1355px;
+    left: 1680px;
+    width: 200px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0); /* transparent background */
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50px;
+ 
+  "
+  onmouseover="this.style.background='rgba(0, 0, 0, 0.3)';
+  this.style.boxShadow='0 0 10px rgba(0, 0, 0, 0.3)';"
+  onmouseout="this.style.background='rgba(0, 0, 0, 0)';
+    this.style.boxShadow='0 0 10px rgba(0, 0, 0, 0.0)';"
+  ></a>
+</footer>
+</html>
