@@ -1,0 +1,327 @@
+body {
+  /* justify-content: center;*/
+  background-color: #000;
+  background: url("../back.png") no-repeat;
+}
+
+.wrapper {
+  position: relative;
+  /* min-width: 320px;
+  max-width: 480px;
+  height: 100vh; */
+  width: 1920px;
+  height: 1430px;
+  padding: 0;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.modal-content {
+  position: flex;
+  background: rgba(0, 0, 0, 0.7);
+  margin: auto;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  font-size: calc(70px + (80 - 70) * ((100vw - 360px) / (1028 - 360)));
+  color: yellow;
+  text-shadow: orange 0px 0px 10px;
+  line-height: 200px;
+  border-radius: 100px;
+}
+
+.close {
+  color: #fff;
+  float: right;
+  text-shadow: orange 0px 0px 10px;
+}
+
+.close:hover,
+.close:focus {
+  color: #ffff5d;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#start-button {
+  height: 500px;
+  width: 500px;
+  /* background-image: url('../images/spatula_color.svg');
+  background-size: cover;
+  background-position: center; */
+  margin: auto;
+  padding-top: 15%;
+  font-size: 80px;  color: #fff;
+  font-weight: bold;
+}
+
+/* #info-button {
+  position: absolute;
+  background: url('../images/info_button.svg') no-repeat;
+  background-size: cover;
+  border: none;
+  width: 35px;
+  height: 35px;
+  bottom: 5%;
+  right: 5%;
+} */
+
+/* #top {
+  height: 20%;
+} */
+
+/* #score-and-clock {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+} */
+ 
+#clock  {
+  position: absolute;
+  font-size: 80px;
+  top: 590px;
+  right: 140px ;
+  text-align: center;
+  color: #ffff5d;
+  letter-spacing: 5px;
+  font: monospace;
+  text-shadow: orange 0px 0px 10px;
+  
+  /* align-items: center;
+  justify-content: center;
+ 
+  float: left;
+  margin: auto;
+  text-align: center;
+  font-size: calc(70px + (80 - 70) * ((100vw - 360px) / (1028 - 360)));
+  color: black;
+  */
+}
+#score {
+  position: absolute;
+  font-size: 80px;
+  top: 65px;
+  right: 820px ;
+  text-align: right;
+  color: #fff;
+  text-shadow: #fff 0px 0px 1px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  width: 50%;
+  float: left;
+  margin: auto; */
+}
+
+#score > div {
+  position: relative;
+  /* font-size: calc(70px + (80 - 70) * ((100vw - 360px) / (1028 - 360))); */
+  font-size: 80px;
+  color: #fff;
+}
+
+#middle {
+  position: absolute;
+  height: 40%;
+  width: 1920px;
+  top: 280px;
+  right: -1000px;
+  justify-content: end;
+  overflow: visible;
+
+}
+#middle2{
+  position: absolute;
+  height: 40%;
+  width: 1920px;
+  top: 1000px;
+  right: 10px;
+  justify-content: end;
+  overflow: visible;
+}
+
+#order-ticketing {
+  display: inline-block;
+  /* float: right; */
+  position: absolute;
+  vertical-align: top;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+}
+
+.order-ticket-wrapper {
+  height: 100%;
+  overflow: hidden;
+  display: flex; /* Add this */
+  flex-direction: column-reverse; /* Add this */
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+#order-tickets {
+  height: 100%;
+  width: 840px;
+  position: relative;
+  float: left;
+  left: 24%;
+  overflow: visible;
+}
+
+.order-ticket {
+  position: absolute;
+  /* border: 4px solid black;
+  border-radius: 5px; */
+  /* height: 98%; */
+  height: 2000px;
+  width: 2000px;
+  margin: 0.5%;
+  /* filter: opacity(30%); */
+  filter: opacity(0%);
+  transition: left .1s;
+  top: 0px;
+  overflow: visible;
+}
+
+.order-ticket > .recipe-items {
+  /* list-style-type: none;
+  top: 20px;
+  left: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  margin: auto; */
+  font-size: 0px;
+  line-height: 5px;
+  text-align: right;
+  position: absolute;
+  top: 0px;
+  overflow: visible;
+  width: 1920px;
+   
+}
+
+.order-ticket > .recipe-items > li {
+  position: absolute;
+  top: 0px;
+  overflow: visible;
+}
+
+.order-ticket > .recipe-items > li > img {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  overflow: visible;
+ 
+}
+
+.order-ticket#active-ticket {
+  filter: opacity(100%);
+  /* background-color: white; */
+  display: flex; /* Add this */
+  flex-direction: column-reverse; /* Add this */
+  justify-content: flex-start;
+  position: absolute;
+  /* top: 200px; */
+  width: 1920px;
+  overflow: visible;
+  height: 2000px;
+  width: 2000px;
+}
+
+#bottom {
+  position: absolute;
+  margin: auto;
+  height:40%;
+  width: 100%;
+  width: 700px;
+  height: 300px;
+  padding: 0px;
+  margin: 0px;
+  top: 180px;
+  left: 597px;
+}
+
+.row {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
+
+.ingredient-image-container {
+  height: 31%;
+  width: 19%;
+  margin: 0.5%;
+  padding: 2%;
+ 
+
+}
+
+.ingredient {
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 330%;
+  width: 100%;
+
+}
+.w-100{
+ height: 20px;
+ margin: 0;
+ padding: 0;
+}
+.crossOffItem {
+  position: absolute;
+  transform: translate(-20px, 50px); /* adjust these values to move it down and left */
+}
+ 
+.ingredient {
+  transition: background-color 0.2s ease-in-out;
+  /* border-radius: 50px; */
+
+}
+
+/* .ingredient.clicked {
+  background-color: #ccc;
+} */
+
+.ingredient.clicked.animate {
+  animation: pulse 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes pulse {
+  30% {
+    transform: scale(1);
+  }
+  45%{
+    filter: brightness(3);
+    /* background-color: cyan; */
+    background: url(../backbtn.png) no-repeat;
+background-size: contain; /* 또는 cover */
+  }
+  50% {
+    transform: scale(1.05);
+
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.ingredient:hover {
+  transform: scale(1.05);
+  filter: brightness(1.25);
+}
